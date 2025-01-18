@@ -1,4 +1,8 @@
-Installation Instructions
+# Product Management Application Setup Guide
+
+This document provides detailed instructions for setting up and running the **Product Management Application**, which uses **.NET 8** for the backend and **Angular 18** for the frontend. This application manages products and includes features such as pagination, customer management, and search functionality.
+
+## Installation Instructions
 1. Clone the Repository
 First, clone the repository to your local machine:
 
@@ -10,9 +14,9 @@ cd Product-Management-System
 2. Backend Setup (.NET 8)
 Navigate to the backend folder:
 
-bash
-Copy
+```bash
 cd Backend
+```
 Restore dependencies:
 Use the .NET CLI to restore all NuGet packages:
 
@@ -27,7 +31,6 @@ Open the appsettings.json file in the backend project.
 Update the ConnectionStrings section with your database credentials:
 
 ```json
-Copy
 "ConnectionStrings": {
   "DefaultConnection": "Server=your-server-name;Database=ProductManagementDB;User Id=your-username;Password=your-password;TrustServerCertificate=True;"
 }
@@ -50,7 +53,7 @@ dotnet run
 
 The backend will run at:
 
-https://localhost:5001 (HTTPS)
+https://localhost:7144
 
 3. Frontend Setup (Angular 18)
 Navigate to the frontend folder:

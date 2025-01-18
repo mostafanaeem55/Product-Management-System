@@ -1,0 +1,108 @@
+<p-toolbar styleClass="mb-6">
+    <ng-template #start>
+      <span class="text-xl font-bold">Our Products</span>
+    </ng-template>
+    <ng-template #end>
+      <p-button label="New" icon="pi pi-plus" class="mr-2" routerLink="/create" />
+    </ng-template>
+  </p-toolbar>
+  <p-toast></p-toast>
+  <p-confirmDialog
+    header="Confirmation"
+    icon="pi pi-exclamation-triangle"
+    acceptLabel="Yes"
+    rejectLabel="No"
+  >
+  </p-confirmDialog>
+  
+  <!-- Search Filters -->
+  <p-card class="mb-4">
+    <div class="flex gap-4">
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <i class="pi pi-search"></i>
+        </p-inputGroupAddon>
+        <input
+          pInputText
+          type="text"
+          placeholder="Search by name..."
+          [(ngModel)]="searchName"
+          (keyup.enter)="onSearch()"
+          class="w-full"
+        />
+      </p-inputGroup>
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <i class="pi pi-dollar"></i>
+        </p-inputGroupAddon>
+        <input
+          pInputText
+          type="number"
+          placeholder="Min Price"
+          [(ngModel)]="searchMinPrice"
+          (keyup.enter)="onSearch()"
+          class="w-full"
+        />
+      </p-inputGroup>
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <i class="pi pi-dollar"></i>
+        </p-inputGroupAddon>
+        <input
+          pInputText
+          type="number"
+          placeholder="Max Price"
+          [(ngModel)]="searchMaxPrice"
+          (keyup.enter)="onSearch()"
+          class="w-full"
+        />
+      </p-inputGroup>
+      <p-button label="Search" (click)="onSearch()" class="w-full" />
+    </div>
+  </p-card>
+  
+  <p-table
+    [value]="products"
+    [rows]="10"
+    [paginator]="true"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [rowHover]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+    class="w-full overflow-x-auto"
+  >
+    <ng-template #caption>
+      <div class="flex items-center justify-between">
+        <h5 class="m-0">Manage Products</h5>
+      </div>
+    </ng-template>
+    <ng-template #header>
+      <tr>
+        <th pSortableColumn="id" class="p-3 text-left">ID</th>
+        <th pSortableColumn="name" class="p-3 text-left">Name</th>
+        <th pSortableColumn="description" class="p-3 text-left">Description</th>
+        <th pSortableColumn="price" class="p-3 text-left">Price</th>
+        <th pSortableColumn="createdDate" class="p-3 text-left">Created Date</th>
+        <th class="p-3 text-left">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-product>
+      <tr class="hover:bg-gray-50">
+        <td class="p-3">{{ product.id }}</td>
+        <td class="p-3">{{ product.name }}</td>
+        <td class="p-3">{{ product.description }}</td>
+        <td class="p-3">{{ product.price | currency: 'USD' }}</td>
+        <td class="p-3">{{ product.createdDate | date }}</td>
+        <td class="p-3">
+          <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" [routerLink]="['/edit', product.id]" />
+          <p-button
+            icon="pi pi-trash"
+            (click)="confirmDelete(product.id)"
+            severity="danger"
+            [rounded]="true"
+            [outlined]="true"
+          />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
